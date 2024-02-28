@@ -1,0 +1,44 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 80px;
+    border-bottom: 2px solid rgba(216, 211, 211, 0.694);
+  .brand-logo {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .nav-items {
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+
+      li {
+        float: left;
+        a {
+          display: block;
+          color: black;
+          font-size: 18px;
+          text-align: center;
+          padding: 14px 16px; /* Padding inside each link */
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  .serach-bars{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 30px;
+
+    button{
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        padding: 0;
+    }
+  }
+}
