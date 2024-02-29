@@ -1,21 +1,16 @@
-.flash-Sales-products{
-//     display: flex;
-//    gap: 30px;
-position: relative;
-.carousel-button-group{
-    position: absolute;
-    top: 0;
-    right: 40px;
-    button{
-        border-radius: 50%;
-        border:none;
-        padding: 4px;
-        margin: 0 10px;
-        cursor: pointer;
-    }
- }
-    .flash-Sales-cards{
+.best-selling-cards-container{
     
+    .headings{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+   .cards-wrapper{
+    display: flex;
+    justify-content: space-between;
+    .best-selling-cards{
+    width: 22%;
         .images-section{
             display: flex;
             flex-direction: column;
@@ -25,6 +20,7 @@ position: relative;
             height: 220px;
             img{
                 width: 220px;
+                height: 200px;
                align-self: center;
             }
             .discount{
@@ -64,18 +60,21 @@ position: relative;
                 font-size: 18px;
                 padding: 10px 0;
                 cursor: pointer;
-               
+             
                 position: absolute;
                 width: 100%;
+                bottom: 0;
                 opacity: 0; 
                 transition: opacity 0.5s ease;
-                bottom: 0;
             }
             &:hover{
                 .add-to-cart{
-                  opacity: 1;
+                
+                   opacity: 1;
                 }
             }
         }
     }
+   }
+
 }

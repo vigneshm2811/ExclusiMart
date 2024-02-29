@@ -1,7 +1,28 @@
 .page-layout{
-    padding: 0 80px;
+    padding: 0 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
     .carosule-Section{
         display: flex;
         // justify-content: space-between;
     }
+    .boxContainer {
+        display: flex;
+        align-items: center;
+        padding: 0;
+        .squareBox {
+            width: 13px;
+            height: 35px;
+            background-color: #DB4444;
+            margin-right: 10px;
+        }
+        h4{
+            color: #DB4444;
+            font-size: 18px;
+        }
+    }
+    
+  
+    
 }

@@ -1,36 +1,72 @@
-import React from 'react'
-import Navbar from '../Header/Navbar'
-import Footer from '../Footer/Footer'
-import SideBar from '../SideBars/SideBar'
-import Carousel from '../Carousel/Carousel'
-import FlashSales from '../FlashSales/FlashSales'
-import CarouselRatio from '../Sample'
-import './Layout.scss'
-import { Container } from '@mui/material'
+import React from "react";
+import Navbar from "../Header/Navbar";
+import Footer from "../Footer/Footer";
+import SideBar from "../SideBars/SideBar";
+import Carousel from "../Carousel/Carousel";
+import FlashSales from "../FlashSales/FlashSales";
+import Button from "@mui/material/Button";
+import BestSelling from "../BestSelling/BestSelling"
+import Browse from "../browesBycatQ/browse";
+import Notify from "../Notify"
+import "./Layout.scss";
+
+
 
 
 const PageLayout = () => {
   return (
-    <>
-    <Navbar/>
-   <div className='page-layout'>
-    {/* <div className="carosule-Section">
-    <SideBar/>
-    <Carousel/>
-    </div> */}
-    <div className="flash-sales-section">
-      <FlashSales/>
+    <>  
+      <div className="page-layout">
+        <div className="carosule-Section">
+          <SideBar />
+          <Carousel />
+        </div>
+        <div className="flash-sales-section">
+          <div className="boxContainer">
+            <div className="squareBox"></div>
+            <h4>Today's</h4>
+          </div>
+          <FlashSales />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "40px",
+            }}>
+            <Button
+              variant="contained"
+              disableElevation
+              style={{
+                backgroundColor: "#DB4444",
+                fontSize: "14px",
+                padding: "8px 24px",
+              }}>
+              View All Products
+            </Button>
+          </div>
+        </div>
 
-<CarouselRatio/>
+        <div className="browse-by-category">
+          <div className="boxContainer">
+            <div className="squareBox"></div>
+            <h4>Categories</h4>
+          </div>
+          <Browse />
+        </div>
 
-    </div>
-   </div>
+        <div className="best-selling-products">
+        <div className="boxContainer">
+            <div className="squareBox"></div>
+            <h4>This Month</h4>
+          </div>
+                <BestSelling/>
+          
+        </div>
+      </div>
 
-  
-    <Footer/>
-    
+      {/* <Notify/> */}
     </>
-  )
-}
+  );
+};
 
-export default PageLayout
+export default PageLayout;

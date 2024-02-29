@@ -1,124 +1,87 @@
 import React from "react";
-import "./FlashSalesStyles.scss";
+import "./BestSellingStyles.scss";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import StarIcon from "@mui/icons-material/Star";
+
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import Box from "@mui/material/Box";
+import bookSelf from "../../assets/images/bookSelf.png";
+import bags from "../../assets/images/bags.png";
+import GPU from "../../assets/images/GPU.png";
+import jacket from "../../assets/images/jacket.png";
 import Rating from "@mui/material/Rating";
-import StarIcon from "@mui/icons-material/Star";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Typography from "@mui/material/Typography";
-import gamepad from "../../assets/images/gamepad.png";
-import keyboard from "../../assets/images/keyboard.png";
-import monitor from "../../assets/images/monitor.png";
-import chair from "../../assets/images/chair.png";
 
-const FlashSales = () => {
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 4,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
 
-  const FlashSalesProductdata = [
+const BestSelling = () => {
+  const bestSellingProductdata = [
     {
       id: "product-1",
-      productName: "HAVIT HV-G92 Gamepad",
-      productImg: gamepad,
-      currentPrice: "$120",
-      previousPrice: "$160",
-      discount: "-40%",
+      productName: "The north coat",
+      productImg: jacket,
+      currentPrice: "$260",
+      previousPrice: "$360",
+      discount: false,
       ratings: 5,
-      totalRates: 88,
+      totalRates: 65,
     },
     {
       id: "product-2",
-      productName: "AK-900 Wired Keyboard",
-      productImg: keyboard,
+      productName: "Gucci duffle bag",
+      productImg: bags,
       currentPrice: "$960",
       previousPrice: "$1160",
-      discount: "-35%",
+      discount: false,
       ratings: 4,
       totalRates: 75,
     },
     {
       id: "product-3",
-      productName: "IPS LCD Gaming Monitor",
-      productImg: monitor,
-      currentPrice: "$370",
-      previousPrice: "$400",
-      discount: "-30%",
+      productName: "RGB liquid CPU Cooler",
+      productImg: GPU,
+      currentPrice: "$160",
+      previousPrice: "$170",
+      discount: false,
       ratings: 3.7,
       totalRates: 99,
     },
     {
-      id: "product-4",
-      productName: "S-Series Comfort Chair ",
-      productImg: chair,
-      currentPrice: "$375",
-      previousPrice: "$400",
-      discount: "-25%",
-      ratings: 4.5,
-      totalRates: 99,
-    },
-    {
       id: "product-5",
-      productName: "S-Series Comfort Chair ",
-      productImg: chair,
+      productName: "Small BookSelf ",
+      productImg: bookSelf,
       currentPrice: "$375",
-      previousPrice: "$400",
-      discount: "-35%",
+      previousPrice: false,
+      discount: false,
       ratings: 4.6,
       totalRates: 99,
     },
   ];
-
-  const CustomButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
-    const {
-      carouselState: { currentSlide },
-    } = rest;
-    return (
-      <div className="carousel-button-group">
-        <button
-          className={currentSlide === 0 ? "disable" : ""}
-          onClick={previous}>
-          <ArrowBackIcon />
-        </button>
-        <button onClick={next}>
-          <ArrowForwardIcon />
-        </button>
-      </div>
-    );
-  };
-
   return (
-    <div className="flash-Sales-products">
-      <h1>Flash Sales</h1>
-      <Carousel
-        responsive={responsive}
-        arrows={false}
-        renderButtonGroupOutside={true}
-        customButtonGroup={<CustomButtonGroup />}>
-        {FlashSalesProductdata.map((e, i) => (
-          <div className="flash-Sales-cards" key={e.id}>
+    <div className="best-selling-cards-container">
+      <div className="headings">
+        <h1>Best Selling Products</h1>
+        <div>
+          {" "}
+          <Button
+            variant="contained"
+            disableElevation
+            style={{
+              backgroundColor: "#DB4444",
+              fontSize: "14px",
+              padding: "8px 24px",
+            }}>
+            View All
+          </Button>
+        </div>
+      </div>
+     <div className="cards-wrapper">
+     {bestSellingProductdata.map((e) => {
+        return (
+          <div className="best-selling-cards" key={e.id}>
             <Card sx={{ maxWidth: 345 }}>
               <div className="images-section">
                 <img src={e.productImg} alt="" />
@@ -145,7 +108,7 @@ const FlashSales = () => {
                     sx={{ fontSize: "16px", fontWeight: "600" }}>
                     {e.currentPrice}
                   </Typography>
-                  {e.previousPrice && <Typography
+                 {e.previousPrice && <Typography
                     color="text.secondary"
                     sx={{ textDecoration: "line-through", fontSize: "16px" }}>
                     {e.previousPrice}
@@ -174,12 +137,11 @@ const FlashSales = () => {
               <CardActions></CardActions>
             </Card>
           </div>
-        ))}
-      </Carousel>
-
-    
+        );
+      })}
+     </div>
     </div>
   );
 };
 
-export default FlashSales;
+export default BestSelling;

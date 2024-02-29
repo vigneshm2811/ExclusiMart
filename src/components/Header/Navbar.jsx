@@ -1,15 +1,15 @@
 import React from "react";
 import "./NavbarStyles.scss";
+import { Link, NavLink } from "react-router-dom";
 
-import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Badge from "@mui/material/Badge";
 
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 const Navbar = () => {
   return (
     <div className="navbar">
@@ -17,16 +17,16 @@ const Navbar = () => {
       <div className="nav-items">
         <ul>
           <li>
-            <a href="">Home</a>
+            <NavLink to="">Home</NavLink>
           </li>
           <li>
-            <a href="">Contact</a>
+            <NavLink to="">Contact</NavLink>
           </li>
           <li>
-            <a href="">About</a>
+            <NavLink to="">About</NavLink>
           </li>
           <li>
-            <a href="">Sign Up</a>
+            <NavLink to="">Sign Up</NavLink>
           </li>
         </ul>
       </div>
@@ -51,16 +51,19 @@ const Navbar = () => {
           </IconButton>
         </Paper>
 
+        <Link to="/wishList">
           <button>
-        <FavoriteBorderIcon />
+            <FavoriteBorderIcon />
           </button>
+        </Link>
 
-
-       <button>
-       <Badge badgeContent={0} color="primary">
-          <ShoppingCartOutlinedIcon />
-        </Badge>
-       </button>
+        <Link to="/cart">
+          <button>
+            <Badge badgeContent={0} color="primary">
+              <ShoppingCartOutlinedIcon />
+            </Badge>
+          </button>
+        </Link>
       </div>
     </div>
   );
