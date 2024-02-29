@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./FlashSalesStyles.scss";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -19,6 +19,12 @@ import monitor from "../../assets/images/monitor.png";
 import chair from "../../assets/images/chair.png";
 
 const FlashSales = () => {
+  const [clickedButtons, setClickedButtons] = useState(
+    Array.from({ length: 5 }, () => false)
+  ); // Array to track the clicked state of wish buttons
+
+  const [wishListArray,setWishListArray] = useState([])
+
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -97,9 +103,7 @@ const FlashSales = () => {
     } = rest;
     return (
       <div className="carousel-button-group">
-        <button
-          className={currentSlide === 0 ? "disable" : ""}
-          onClick={previous}>
+        <button className={currentSlide === 0 ? "disable" : ""} onClick={previous}>
           <ArrowBackIcon />
         </button>
         <button onClick={next}>
@@ -109,6 +113,24 @@ const FlashSales = () => {
     );
   };
 
+  const addToWish = (index) => {
+    const newClickedButtons = [...clickedButtons];
+    newClickedButtons[index] = !newClickedButtons[index]; // Toggle the boolean value
+    setClickedButtons(newClickedButtons);
+
+    if (!clickedButtons[index]) {
+      // If the button is clicked (added to wish list), add the item to the wish list array
+      setWishListArray((prevWishList) => [...prevWishList, FlashSalesProductdata[index]]);
+    } else {
+      // If the button is unclicked (removed from wish list), remove the item from the wish list array
+      setWishListArray((prevWishList) =>
+        prevWishList.filter((item) => item.id !== FlashSalesProductdata[index].id)
+      );
+    }
+    console.log("whishdata", wishListArray)
+
+  };
+
   return (
     <div className="flash-Sales-products">
       <h1>Flash Sales</h1>
@@ -116,17 +138,24 @@ const FlashSales = () => {
         responsive={responsive}
         arrows={false}
         renderButtonGroupOutside={true}
-        customButtonGroup={<CustomButtonGroup />}>
+        customButtonGroup={<CustomButtonGroup />}
+      >
         {FlashSalesProductdata.map((e, i) => (
           <div className="flash-Sales-cards" key={e.id}>
             <Card sx={{ maxWidth: 345 }}>
               <div className="images-section">
                 <img src={e.productImg} alt="" />
                 <div className="add-to-cart">Add to cart</div>
-                {e.discount &&<span className="discount">{e.discount}</span>}
+                {e.discount && <span className="discount">{e.discount}</span>}
                 <div className="fav-icons">
                   <div>
-                    <FavoriteBorderOutlinedIcon sx={{ fontSize: "30px" }} />{" "}
+                    <FavoriteBorderOutlinedIcon
+                      onClick={() => addToWish(i)}
+                      sx={{
+                        fontSize: "30px",
+                        color: clickedButtons[i] ? "red" : "inherit",
+                      }}
+                    />{" "}
                   </div>
                   <div>
                     <RemoveRedEyeOutlinedIcon sx={{ fontSize: "30px" }} />
@@ -136,20 +165,25 @@ const FlashSales = () => {
               <CardContent style={{ padding: "12px" }}>
                 <Typography
                   gutterBottom
-                  sx={{ fontSize: "18px", fontWeight: "600" }}>
+                  sx={{ fontSize: "18px", fontWeight: "600" }}
+                >
                   {e.productName}
                 </Typography>
                 <div style={{ display: "flex", gap: "12px" }}>
                   <Typography
                     color="#DB4444"
-                    sx={{ fontSize: "16px", fontWeight: "600" }}>
+                    sx={{ fontSize: "16px", fontWeight: "600" }}
+                  >
                     {e.currentPrice}
                   </Typography>
-                  {e.previousPrice && <Typography
-                    color="text.secondary"
-                    sx={{ textDecoration: "line-through", fontSize: "16px" }}>
-                    {e.previousPrice}
-                  </Typography>}
+                  {e.previousPrice && (
+                    <Typography
+                      color="text.secondary"
+                      sx={{ textDecoration: "line-through", fontSize: "16px" }}
+                    >
+                      {e.previousPrice}
+                    </Typography>
+                  )}
                 </div>
                 <div className="star-ratings">
                   <Box
@@ -157,7 +191,8 @@ const FlashSales = () => {
                       width: 200,
                       display: "flex",
                       alignItems: "center",
-                    }}>
+                    }}
+                  >
                     <Rating
                       name="text-feedback"
                       value={e.ratings}
@@ -165,7 +200,9 @@ const FlashSales = () => {
                       precision={0.5}
                       style={{ fontSize: "28px" }}
                       emptyIcon={
-                        <StarIcon style={{ opacity: 0.55, fontSize: "28px" }} />
+                        <StarIcon
+                          style={{ opacity: 0.55, fontSize: "28px" }}
+                        />
                       }
                     />
                   </Box>
@@ -177,7 +214,7 @@ const FlashSales = () => {
         ))}
       </Carousel>
 
-    
+      
     </div>
   );
 };

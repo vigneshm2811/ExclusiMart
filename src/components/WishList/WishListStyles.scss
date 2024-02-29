@@ -1,0 +1,73 @@
+.wishListData{
+    padding: 40px 80px;
+    .cards-wrapper{
+        display: flex;
+        justify-content: space-between;
+        .best-selling-cards{
+        width: 22%;
+            .images-section{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                background-color: #F5F5F5;
+                position: relative;
+                height: 220px;
+                img{
+                    width: 220px;
+                    height: 200px;
+                   align-self: center;
+                }
+                .discount{
+                    font-size: 16px;
+                    padding:4px 8px;
+                    border-radius: 5px;
+                    top:10px;
+                    left: 10px;
+                    position: absolute;
+                    color: white;
+                    background-color: #DB4444;
+                }
+                .fav-icons{
+                    
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    align-items: center;
+                    right: 10px;
+                    top: 10px;
+                    gap: 8px;
+        
+                    div{
+                        display: flex;
+                        background-color: white;
+                        align-items: center;
+                        border-radius: 50%;
+                        padding: 4px;
+                        cursor: pointer;
+                        
+                    }
+                }
+                .add-to-cart{
+                    background-color: black;
+                    color: white;
+                    text-align: center;
+                    font-size: 18px;
+                    padding: 10px 0;
+                    cursor: pointer;
+                 
+                    position: absolute;
+                    width: 100%;
+                    bottom: 0;
+                    opacity: 0; 
+                    transition: opacity 0.5s ease;
+                }
+                &:hover{
+                    .add-to-cart{
+                    
+                       opacity: 1;
+                    }
+                }
+            }
+        }
+       }
+}
