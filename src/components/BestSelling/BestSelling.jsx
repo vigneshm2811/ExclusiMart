@@ -3,9 +3,7 @@ import "./BestSellingStyles.scss";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
-
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
@@ -157,7 +155,7 @@ const BestSelling = ({ onWishlistToggle }) => {
                     </Box>
                   </div>
                 </CardContent>
-                <CardActions></CardActions>
+               
               </Card>
             </div>
           );

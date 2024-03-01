@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import "./Layout.scss";
-import Navbar from "../Header/Navbar";
-import Footer from "../Footer/Footer";
+
 import SideBar from "../SideBars/SideBar";
 import Carousel from "../Carousel/Carousel";
 import FlashSales from "../FlashSales/FlashSales";
 import Button from "@mui/material/Button";
 import BestSelling from "../BestSelling/BestSelling";
 import Browse from "../browesBycatQ/browse";
-import Notify from "../Notify";
+
 
 const PageLayout = () => {
   const [wishListArray, setWishListArray] = useState([]);
@@ -26,6 +25,7 @@ const PageLayout = () => {
       setWishListArray(updatedWishlist);
     }
   };
+  
 
   return (
     <>
