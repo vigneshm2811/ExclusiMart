@@ -18,12 +18,10 @@ import keyboard from "../../assets/images/keyboard.png";
 import monitor from "../../assets/images/monitor.png";
 import chair from "../../assets/images/chair.png";
 
-const FlashSales = () => {
+const FlashSales = ({ wishListArray, onWishlistToggle }) => {
   const [clickedButtons, setClickedButtons] = useState(
     Array.from({ length: 5 }, () => false)
   ); // Array to track the clicked state of wish buttons
-
-  const [wishListArray,setWishListArray] = useState([])
 
   const responsive = {
     superLargeDesktop: {
@@ -118,17 +116,10 @@ const FlashSales = () => {
     newClickedButtons[index] = !newClickedButtons[index]; // Toggle the boolean value
     setClickedButtons(newClickedButtons);
 
-    if (!clickedButtons[index]) {
-      // If the button is clicked (added to wish list), add the item to the wish list array
-      setWishListArray((prevWishList) => [...prevWishList, FlashSalesProductdata[index]]);
-    } else {
-      // If the button is unclicked (removed from wish list), remove the item from the wish list array
-      setWishListArray((prevWishList) =>
-        prevWishList.filter((item) => item.id !== FlashSalesProductdata[index].id)
-      );
-    }
-    console.log("whishdata", wishListArray)
-
+    // Get the product data
+    const product = FlashSalesProductdata[index];
+    // Call the parent component's onWishlistToggle function
+    onWishlistToggle(product);
   };
 
   return (
@@ -213,8 +204,6 @@ const FlashSales = () => {
           </div>
         ))}
       </Carousel>
-
-      
     </div>
   );
 };

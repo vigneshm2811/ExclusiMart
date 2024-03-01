@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./BestSellingStyles.scss";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -16,8 +16,11 @@ import jacket from "../../assets/images/jacket.png";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
 
+const BestSelling = ({ onWishlistToggle }) => {
+  const [clickedButtons, setClickedButtons] = useState(
+    Array.from({ length: 4 }, () => false)
+  ); // Array to track the clicked state of wish buttons
 
-const BestSelling = () => {
   const bestSellingProductdata = [
     {
       id: "product-1",
@@ -60,6 +63,18 @@ const BestSelling = () => {
       totalRates: 99,
     },
   ];
+
+  const addToWish = (index) => {
+    const newClickedButtons = [...clickedButtons];
+    newClickedButtons[index] = !newClickedButtons[index]; // Toggle the boolean value
+    setClickedButtons(newClickedButtons);
+
+    // Get the product data
+    const product = bestSellingProductdata[index];
+    // Call the parent component's onWishlistToggle function
+    onWishlistToggle(product);
+  };
+
   return (
     <div className="best-selling-cards-container">
       <div className="headings">
@@ -78,68 +93,76 @@ const BestSelling = () => {
           </Button>
         </div>
       </div>
-     <div className="cards-wrapper">
-     {bestSellingProductdata.map((e) => {
-        return (
-          <div className="best-selling-cards" key={e.id}>
-            <Card sx={{ maxWidth: 345 }}>
-              <div className="images-section">
-                <img src={e.productImg} alt="" />
-                <div className="add-to-cart">Add to cart</div>
-                {e.discount &&<span className="discount">{e.discount}</span>}
-                <div className="fav-icons">
-                  <div>
-                    <FavoriteBorderOutlinedIcon sx={{ fontSize: "30px" }} />{" "}
-                  </div>
-                  <div>
-                    <RemoveRedEyeOutlinedIcon sx={{ fontSize: "30px" }} />
+      <div className="cards-wrapper">
+        {bestSellingProductdata.map((e, i) => {
+          return (
+            <div className="best-selling-cards" key={e.id}>
+              <Card sx={{ maxWidth: 345 }}>
+                <div className="images-section">
+                  <img src={e.productImg} alt="" />
+                  <div className="add-to-cart">Add to cart</div>
+                  {e.discount && <span className="discount">{e.discount}</span>}
+                  <div className="fav-icons">
+                    <div>
+                      <FavoriteBorderOutlinedIcon
+                        onClick={() => addToWish(i)}
+                        sx={{
+                          fontSize: "30px",
+                          color: clickedButtons[i] ? "red" : "inherit",
+                        }}
+                      />{" "}
+                    </div>
+                    <div>
+                      <RemoveRedEyeOutlinedIcon sx={{ fontSize: "30px" }} />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <CardContent style={{ padding: "12px" }}>
-                <Typography
-                  gutterBottom
-                  sx={{ fontSize: "18px", fontWeight: "600" }}>
-                  {e.productName}
-                </Typography>
-                <div style={{ display: "flex", gap: "12px" }}>
+                <CardContent style={{ padding: "12px" }}>
                   <Typography
-                    color="#DB4444"
-                    sx={{ fontSize: "16px", fontWeight: "600" }}>
-                    {e.currentPrice}
+                    gutterBottom
+                    sx={{ fontSize: "18px", fontWeight: "600" }}>
+                    {e.productName}
                   </Typography>
-                 {e.previousPrice && <Typography
-                    color="text.secondary"
-                    sx={{ textDecoration: "line-through", fontSize: "16px" }}>
-                    {e.previousPrice}
-                  </Typography>}
-                </div>
-                <div className="star-ratings">
-                  <Box
-                    sx={{
-                      width: 200,
-                      display: "flex",
-                      alignItems: "center",
-                    }}>
-                    <Rating
-                      name="text-feedback"
-                      value={e.ratings}
-                      readOnly
-                      precision={0.5}
-                      style={{ fontSize: "28px" }}
-                      emptyIcon={
-                        <StarIcon style={{ opacity: 0.55, fontSize: "28px" }} />
-                      }
-                    />
-                  </Box>
-                </div>
-              </CardContent>
-              <CardActions></CardActions>
-            </Card>
-          </div>
-        );
-      })}
-     </div>
+                  <div style={{ display: "flex", gap: "12px" }}>
+                    <Typography
+                      color="#DB4444"
+                      sx={{ fontSize: "16px", fontWeight: "600" }}>
+                      {e.currentPrice}
+                    </Typography>
+                    {e.previousPrice && (
+                      <Typography
+                        color="text.secondary"
+                        sx={{ textDecoration: "line-through", fontSize: "16px" }}>
+                        {e.previousPrice}
+                      </Typography>
+                    )}
+                  </div>
+                  <div className="star-ratings">
+                    <Box
+                      sx={{
+                        width: 200,
+                        display: "flex",
+                        alignItems: "center",
+                      }}>
+                      <Rating
+                        name="text-feedback"
+                        value={e.ratings}
+                        readOnly
+                        precision={0.5}
+                        style={{ fontSize: "28px" }}
+                        emptyIcon={
+                          <StarIcon style={{ opacity: 0.55, fontSize: "28px" }} />
+                        }
+                      />
+                    </Box>
+                  </div>
+                </CardContent>
+                <CardActions></CardActions>
+              </Card>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
