@@ -17,8 +17,16 @@ import gamepad from "../../assets/images/gamepad.png";
 import keyboard from "../../assets/images/keyboard.png";
 import monitor from "../../assets/images/monitor.png";
 import chair from "../../assets/images/chair.png";
+import {addItemsFav,removeFavItems} from "../../features/wishList/WishListSlice"
+import {addedToCart} from "../../features/addToCart/cartSlice"
 
-const FlashSales = ({ wishListArray, onWishlistToggle }) => {
+
+import {useDispatch,useSelector } from 'react-redux'
+
+const FlashSales = () => {
+  const dispatch = useDispatch()
+  const wishListArray = useSelector((state) => state.wishList);
+console.log(wishListArray)
   const [clickedButtons, setClickedButtons] = useState(
     Array.from({ length: 5 }, () => false)
   ); // Array to track the clicked state of wish buttons
@@ -115,11 +123,15 @@ const FlashSales = ({ wishListArray, onWishlistToggle }) => {
     const newClickedButtons = [...clickedButtons];
     newClickedButtons[index] = !newClickedButtons[index]; // Toggle the boolean value
     setClickedButtons(newClickedButtons);
-
     // Get the product data
     const product = FlashSalesProductdata[index];
-    // Call the parent component's onWishlistToggle function
-    onWishlistToggle(product);
+    const isItemInWishlist = wishListArray.some(item => item.id === product.id);
+    if(isItemInWishlist){
+      dispatch(removeFavItems(product.id))
+    }
+    else{
+      dispatch(addItemsFav(product))
+    }
   };
 
   return (
@@ -136,7 +148,7 @@ const FlashSales = ({ wishListArray, onWishlistToggle }) => {
             <Card sx={{ maxWidth: 345 }}>
               <div className="images-section">
                 <img src={e.productImg} alt="" />
-                <div className="add-to-cart">Add to cart</div>
+                <div className="add-to-cart" onClick={()=>dispatch(addedToCart(e))}>Add to cart</div>
                 {e.discount && <span className="discount">{e.discount}</span>}
                 <div className="fav-icons">
                   <div>

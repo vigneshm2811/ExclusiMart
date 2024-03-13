@@ -13,15 +13,20 @@ import GPU from "../../assets/images/GPU.png";
 import jacket from "../../assets/images/jacket.png";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
+import {addItemsFav,removeFavItems} from "../../features/wishList/WishListSlice"
+import {useDispatch,useSelector } from 'react-redux'
 
-const BestSelling = ({ onWishlistToggle }) => {
+
+const BestSelling = () => {
+  const dispatch = useDispatch()
+  const wishListArray = useSelector((state) => state.wishList);
   const [clickedButtons, setClickedButtons] = useState(
     Array.from({ length: 4 }, () => false)
   ); // Array to track the clicked state of wish buttons
 
   const bestSellingProductdata = [
     {
-      id: "product-1",
+      id: "productBest-1",
       productName: "The north coat",
       productImg: jacket,
       currentPrice: "$260",
@@ -31,7 +36,7 @@ const BestSelling = ({ onWishlistToggle }) => {
       totalRates: 65,
     },
     {
-      id: "product-2",
+      id: "productBest-2",
       productName: "Gucci duffle bag",
       productImg: bags,
       currentPrice: "$960",
@@ -41,7 +46,7 @@ const BestSelling = ({ onWishlistToggle }) => {
       totalRates: 75,
     },
     {
-      id: "product-3",
+      id: "productBest-3",
       productName: "RGB liquid CPU Cooler",
       productImg: GPU,
       currentPrice: "$160",
@@ -51,7 +56,7 @@ const BestSelling = ({ onWishlistToggle }) => {
       totalRates: 99,
     },
     {
-      id: "product-5",
+      id: "productBest-5",
       productName: "Small BookSelf ",
       productImg: bookSelf,
       currentPrice: "$375",
@@ -66,11 +71,15 @@ const BestSelling = ({ onWishlistToggle }) => {
     const newClickedButtons = [...clickedButtons];
     newClickedButtons[index] = !newClickedButtons[index]; // Toggle the boolean value
     setClickedButtons(newClickedButtons);
-
     // Get the product data
     const product = bestSellingProductdata[index];
-    // Call the parent component's onWishlistToggle function
-    onWishlistToggle(product);
+    const isItemInWishlist = wishListArray.some(item => item.id === product.id);
+    if(isItemInWishlist){
+      dispatch(removeFavItems(product.id))
+    }
+    else{
+      dispatch(addItemsFav(product))
+    }
   };
 
   return (

@@ -1,28 +1,29 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import {Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
-import PageLayout from './components/Layout/index.jsx'
-import Layouts from './pageLayout.jsx'
-import WishList from './components/WishList/WishList.jsx'
-import AddToCart from './components/AddToCart/AddToCart.jsx'
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<Layouts/>}>
-      <Route path='' element={<PageLayout/>}/>
-      <Route path='/wishList' element={<WishList/>}/>
-      <Route path='/cart' element={<AddToCart/>}/>
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store  from './app/store';
+import PageLayout from './components/Layout';
+import WishList from './components/WishList/WishList';
+import AddToCart from './components/AddToCart/AddToCart';
+import Layouts from './pageLayout';
 
-      
-    </Route>
-  )
-)
+const router = (
+  <Router>
+    <Routes>
+      <Route path="/" element={<Layouts />}>
+        <Route path="/" element={<PageLayout />} />
+        <Route path="/wishList" element={<WishList />} />
+        <Route path="/cart" element={<AddToCart />} />
+      </Route>
+    </Routes>
+  </Router>
+);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <App /> */}
-    <RouterProvider router={router}/>
-
-  </React.StrictMode>,
-)
+    <Provider store={store}>
+      {router}
+    </Provider>
+  </React.StrictMode>
+);

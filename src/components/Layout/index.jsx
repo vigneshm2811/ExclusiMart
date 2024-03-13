@@ -7,26 +7,11 @@ import FlashSales from "../FlashSales/FlashSales";
 import Button from "@mui/material/Button";
 import BestSelling from "../BestSelling/BestSelling";
 import Browse from "../browesBycatQ/browse";
+import {useDispatch } from 'react-redux'
+import {addItemsFav} from "../../features/wishList/WishListSlice"
 
 
 const PageLayout = () => {
-  const [wishListArray, setWishListArray] = useState([]);
-
-  // Function to handle adding or removing items from the wishlist
-  const handleWishlistToggle = (product) => {
-    const index = wishListArray.findIndex((item) => item.id === product.id);
-    if (index === -1) {
-      // If product not found in wishlist, add it
-      setWishListArray([...wishListArray, product]);
-    } else {
-      // If product found in wishlist, remove it
-      const updatedWishlist = [...wishListArray];
-      updatedWishlist.splice(index, 1);
-      setWishListArray(updatedWishlist);
-    }
-  };
-  
-
   return (
     <>
       <div className="page-layout">
@@ -39,7 +24,7 @@ const PageLayout = () => {
             <div className="squareBox"></div>
             <h4>Today's</h4>
           </div>
-          <FlashSales onWishlistToggle={handleWishlistToggle} />
+          <FlashSales  />
           <div
             style={{
               display: "flex",
@@ -74,7 +59,7 @@ const PageLayout = () => {
             <div className="squareBox"></div>
             <h4>This Month</h4>
           </div>
-          <BestSelling onWishlistToggle={handleWishlistToggle} />
+          <BestSelling  />
         </div>
       </div>
 

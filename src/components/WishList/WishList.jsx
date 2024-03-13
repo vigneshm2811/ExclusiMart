@@ -1,21 +1,31 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import './WishListStyles.scss';
+import {  useSelector,useDispatch } from 'react-redux'
+import { removeFavItems } from '../../features/wishList/WishListSlice';
 
-const WishList = ({ wishListArray }) => {
+
+const WishList = () => {
+const dispatch = useDispatch()
+
+const wishListArray = useSelector((state) => state.wishList);
+
+// const a = useSelector((state) => state.wishList)
+// console.log(a)
+// console.log(wishListArray)
   return (
     <div className="wishListData">
       <div className="cards-wrapper">
-        {wishListArray.map((e) => (
-          <div className="best-selling-cards" key={e.id}>
+        { wishListArray.map((e) => {
+          return(
+            <div className="best-selling-cards" key={e.id}>
             <Card>
               <div className="images-section">
                 <img src={e.productImg} alt="" />
@@ -23,11 +33,9 @@ const WishList = ({ wishListArray }) => {
                 {e.discount && <span className="discount">{e.discount}</span>}
                 <div className="fav-icons">
                   <div>
-                    <FavoriteBorderOutlinedIcon sx={{ fontSize: "30px" }} />
+                    <DeleteOutlineIcon onClick={()=>dispatch(removeFavItems(e.id))} sx={{ fontSize: "30px" }} className='deleteIcon'/>
                   </div>
-                  <div>
-                    <RemoveRedEyeOutlinedIcon sx={{ fontSize: "30px" }} />
-                  </div>
+                 
                 </div>
               </div>
               <CardContent style={{ padding: "12px" }}>
@@ -60,7 +68,8 @@ const WishList = ({ wishListArray }) => {
               <CardActions></CardActions>
             </Card>
           </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   );
