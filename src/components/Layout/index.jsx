@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Layout.scss";
-
+import Notify from "../Notify";
 import SideBar from "../SideBars/SideBar";
 import Carousel from "../Carousel/Carousel";
 import FlashSales from "../FlashSales/FlashSales";

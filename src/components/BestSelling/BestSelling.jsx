@@ -14,7 +14,10 @@ import jacket from "../../assets/images/jacket.png";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
 import {addItemsFav,removeFavItems} from "../../features/wishList/WishListSlice"
+import {addedToCart} from "../../features/addToCart/cartSlice"
 import {useDispatch,useSelector } from 'react-redux'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const BestSelling = () => {
@@ -29,8 +32,8 @@ const BestSelling = () => {
       id: "productBest-1",
       productName: "The north coat",
       productImg: jacket,
-      currentPrice: "$260",
-      previousPrice: "$360",
+      currentPrice: "260",
+      previousPrice: "360",
       discount: false,
       ratings: 5,
       totalRates: 65,
@@ -39,8 +42,8 @@ const BestSelling = () => {
       id: "productBest-2",
       productName: "Gucci duffle bag",
       productImg: bags,
-      currentPrice: "$960",
-      previousPrice: "$1160",
+      currentPrice: "960",
+      previousPrice: "1160",
       discount: false,
       ratings: 4,
       totalRates: 75,
@@ -49,8 +52,8 @@ const BestSelling = () => {
       id: "productBest-3",
       productName: "RGB liquid CPU Cooler",
       productImg: GPU,
-      currentPrice: "$160",
-      previousPrice: "$170",
+      currentPrice: "160",
+      previousPrice: "170",
       discount: false,
       ratings: 3.7,
       totalRates: 99,
@@ -59,14 +62,23 @@ const BestSelling = () => {
       id: "productBest-5",
       productName: "Small BookSelf ",
       productImg: bookSelf,
-      currentPrice: "$375",
+      currentPrice: "375",
       previousPrice: false,
       discount: false,
       ratings: 4.6,
       totalRates: 99,
     },
   ];
-
+  const notifyA = () =>{
+    toast.success("Product Added to cart", {
+      position: "top-right"
+    });
+  }
+  const notifyB = () =>{
+    toast.error("Added to Favorite", {
+      position: "top-right"
+    });
+  }
   const addToWish = (index) => {
     const newClickedButtons = [...clickedButtons];
     newClickedButtons[index] = !newClickedButtons[index]; // Toggle the boolean value
@@ -79,13 +91,27 @@ const BestSelling = () => {
     }
     else{
       dispatch(addItemsFav(product))
+      notifyB()
     }
   };
+
+  const addToCartFun = (data)=>{
+    dispatch(addedToCart(data))
+    notifyA()
+  }
 
   return (
     <div className="best-selling-cards-container">
       <div className="headings">
         <h1>Best Selling Products</h1>
+        <ToastContainer containerId="B"
+        theme="dark"
+        autoClose={1000}
+        />
+        <ToastContainer containerId="A"
+        theme="dark"
+        autoClose={1000}
+        />
         <div>
           {" "}
           <Button
@@ -107,7 +133,7 @@ const BestSelling = () => {
               <Card sx={{ maxWidth: 345 }}>
                 <div className="images-section">
                   <img src={e.productImg} alt="" />
-                  <div className="add-to-cart">Add to cart</div>
+                  <div className="add-to-cart" onClick={()=>addToCartFun(e)}>Add to cart</div>
                   {e.discount && <span className="discount">{e.discount}</span>}
                   <div className="fav-icons">
                     <div>
@@ -134,13 +160,13 @@ const BestSelling = () => {
                     <Typography
                       color="#DB4444"
                       sx={{ fontSize: "16px", fontWeight: "600" }}>
-                      {e.currentPrice}
+                      ${e.currentPrice}
                     </Typography>
                     {e.previousPrice && (
                       <Typography
                         color="text.secondary"
                         sx={{ textDecoration: "line-through", fontSize: "16px" }}>
-                        {e.previousPrice}
+                        ${e.previousPrice}
                       </Typography>
                     )}
                   </div>

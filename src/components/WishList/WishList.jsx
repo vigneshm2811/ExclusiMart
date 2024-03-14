@@ -10,18 +10,31 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import './WishListStyles.scss';
 import {  useSelector,useDispatch } from 'react-redux'
 import { removeFavItems } from '../../features/wishList/WishListSlice';
+import {addedToCart} from "../../features/addToCart/cartSlice"
+import { toast, ToastContainer } from 'react-toastify';
+
 
 
 const WishList = () => {
 const dispatch = useDispatch()
 
 const wishListArray = useSelector((state) => state.wishList);
-
-// const a = useSelector((state) => state.wishList)
-// console.log(a)
-// console.log(wishListArray)
+const notify = () =>{
+  toast.success("Product Added to cart", {
+    position: "top-right"
+  });
+}
+const addToCartFun = (data)=>{
+  dispatch(addedToCart(data))
+  dispatch(removeFavItems(data.id))
+  notify()
+}
   return (
     <div className="wishListData">
+            <ToastContainer 
+        theme="dark"
+        autoClose={1000}
+        />
       <div className="cards-wrapper">
         { wishListArray.map((e) => {
           return(
@@ -29,7 +42,7 @@ const wishListArray = useSelector((state) => state.wishList);
             <Card>
               <div className="images-section">
                 <img src={e.productImg} alt="" />
-                <div className="add-to-cart">Add to cart</div>
+                <div className="add-to-cart" onClick={()=>addToCartFun(e)}>Add to cart</div>
                 {e.discount && <span className="discount">{e.discount}</span>}
                 <div className="fav-icons">
                   <div>

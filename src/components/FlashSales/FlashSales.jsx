@@ -19,6 +19,7 @@ import monitor from "../../assets/images/monitor.png";
 import chair from "../../assets/images/chair.png";
 import {addItemsFav,removeFavItems} from "../../features/wishList/WishListSlice"
 import {addedToCart} from "../../features/addToCart/cartSlice"
+import { toast, ToastContainer } from 'react-toastify';
 
 
 import {useDispatch,useSelector } from 'react-redux'
@@ -55,8 +56,8 @@ console.log(wishListArray)
       id: "product-1",
       productName: "HAVIT HV-G92 Gamepad",
       productImg: gamepad,
-      currentPrice: "$120",
-      previousPrice: "$160",
+      currentPrice: "120",
+      previousPrice: "160",
       discount: "-40%",
       ratings: 5,
       totalRates: 88,
@@ -65,8 +66,8 @@ console.log(wishListArray)
       id: "product-2",
       productName: "AK-900 Wired Keyboard",
       productImg: keyboard,
-      currentPrice: "$960",
-      previousPrice: "$1160",
+      currentPrice: "960",
+      previousPrice: "1160",
       discount: "-35%",
       ratings: 4,
       totalRates: 75,
@@ -75,8 +76,8 @@ console.log(wishListArray)
       id: "product-3",
       productName: "IPS LCD Gaming Monitor",
       productImg: monitor,
-      currentPrice: "$370",
-      previousPrice: "$400",
+      currentPrice: "370",
+      previousPrice: "400",
       discount: "-30%",
       ratings: 3.7,
       totalRates: 99,
@@ -85,8 +86,8 @@ console.log(wishListArray)
       id: "product-4",
       productName: "S-Series Comfort Chair ",
       productImg: chair,
-      currentPrice: "$375",
-      previousPrice: "$400",
+      currentPrice: "375",
+      previousPrice: "400",
       discount: "-25%",
       ratings: 4.5,
       totalRates: 99,
@@ -95,8 +96,8 @@ console.log(wishListArray)
       id: "product-5",
       productName: "S-Series Comfort Chair ",
       productImg: chair,
-      currentPrice: "$375",
-      previousPrice: "$400",
+      currentPrice: "375",
+      previousPrice: "400",
       discount: "-35%",
       ratings: 4.6,
       totalRates: 99,
@@ -118,6 +119,18 @@ console.log(wishListArray)
       </div>
     );
   };
+  
+  const notifyA = () =>{
+    toast.success("Product Added to cart", {
+      position: "top-right"
+    });
+  }
+  const notifyB = () =>{
+    toast.error("Added to Favorite", {
+      position: "top-right",
+      icon: <StarIcon/>
+    });
+  }
 
   const addToWish = (index) => {
     const newClickedButtons = [...clickedButtons];
@@ -131,12 +144,21 @@ console.log(wishListArray)
     }
     else{
       dispatch(addItemsFav(product))
+      notifyB()
     }
   };
+  const addToCartFun = (data)=>{
+    dispatch(addedToCart(data))
+    notifyA()
+  }
 
   return (
     <div className="flash-Sales-products">
       <h1>Flash Sales</h1>
+      <ToastContainer 
+        theme="dark"
+        autoClose={1000}
+        />
       <Carousel
         responsive={responsive}
         arrows={false}
@@ -148,7 +170,7 @@ console.log(wishListArray)
             <Card sx={{ maxWidth: 345 }}>
               <div className="images-section">
                 <img src={e.productImg} alt="" />
-                <div className="add-to-cart" onClick={()=>dispatch(addedToCart(e))}>Add to cart</div>
+                <div className="add-to-cart" onClick={()=>addToCartFun(e)}>Add to cart</div>
                 {e.discount && <span className="discount">{e.discount}</span>}
                 <div className="fav-icons">
                   <div>
@@ -177,14 +199,14 @@ console.log(wishListArray)
                     color="#DB4444"
                     sx={{ fontSize: "16px", fontWeight: "600" }}
                   >
-                    {e.currentPrice}
+                    ${e.currentPrice}
                   </Typography>
                   {e.previousPrice && (
                     <Typography
                       color="text.secondary"
                       sx={{ textDecoration: "line-through", fontSize: "16px" }}
                     >
-                      {e.previousPrice}
+                      ${e.previousPrice}
                     </Typography>
                   )}
                 </div>
