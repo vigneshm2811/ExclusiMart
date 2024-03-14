@@ -1,0 +1,14 @@
+.addToCartContainer{
+    padding: 50px 90px;
+
+    .checkout{
+        display: flex;
+        justify-content:space-between;
+        .coupons{
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+    }
+   
+}

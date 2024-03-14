@@ -10,7 +10,7 @@ function Notify() {
 
    return (
       <>
-        <button onClick={notify}>Notify</button>;
+        <button onClick={notify}>Notify</button>
         <ToastContainer 
         theme="dark"
         autoClose={4000}
