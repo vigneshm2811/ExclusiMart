@@ -20,8 +20,8 @@ import chair from "../../assets/images/chair.png";
 import {addItemsFav,removeFavItems} from "../../features/wishList/WishListSlice"
 import {addedToCart} from "../../features/addToCart/cartSlice"
 import { toast, ToastContainer } from 'react-toastify';
-
-
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import {useDispatch,useSelector } from 'react-redux'
 
 const FlashSales = () => {
@@ -122,13 +122,14 @@ console.log(wishListArray)
   
   const notifyA = () =>{
     toast.success("Product Added to cart", {
-      position: "top-right"
+      position: "top-right",
+      icon:<AddShoppingCartIcon sx={{fontSize:"28px",color:"#07bc0c"}}/>
     });
   }
   const notifyB = () =>{
     toast.error("Added to Favorite", {
       position: "top-right",
-      icon: <StarIcon/>
+      icon: <FavoriteIcon sx={{fontSize:"28px",color:"#db4444"}}/>
     });
   }
 

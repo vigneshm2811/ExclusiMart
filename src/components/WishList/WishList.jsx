@@ -12,7 +12,7 @@ import {  useSelector,useDispatch } from 'react-redux'
 import { removeFavItems } from '../../features/wishList/WishListSlice';
 import {addedToCart} from "../../features/addToCart/cartSlice"
 import { toast, ToastContainer } from 'react-toastify';
-
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
 const WishList = () => {
@@ -21,7 +21,9 @@ const dispatch = useDispatch()
 const wishListArray = useSelector((state) => state.wishList);
 const notify = () =>{
   toast.success("Product Added to cart", {
-    position: "top-right"
+    position: "top-right",
+    icon:<AddShoppingCartIcon sx={{fontSize:"28px",color:"#07bc0c"}}/>
+
   });
 }
 const addToCartFun = (data)=>{

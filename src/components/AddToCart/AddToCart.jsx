@@ -18,6 +18,7 @@ const AddToCart = () => {
   console.log(AddToCartData);
   const [quantities, setQuantities] = useState({});
   const [totals, setTotals] = useState({});
+  const [overAllTotals, setOverAllTotals] = useState({});
   const dispatch = useDispatch()
   useEffect(() => {
     // Calculate total on page load
@@ -26,6 +27,7 @@ const AddToCart = () => {
       initialTotal += (quantities[data.id] || 1) * parseInt(data.currentPrice);
     });
     setTotals(initialTotal);
+    setOverAllTotals(initialTotal);
   }, []); // Empty dependency array to run this effect only once on page load
 
   const handleQuantityChange = (id, value, price) => {
@@ -42,8 +44,14 @@ const AddToCart = () => {
       updatedTotal += (quantities[data.id] || 1) * parseInt(data.currentPrice);
     });
     setTotals(updatedTotal);
+    setOverAllTotals(updatedTotal);
   };
+  useEffect(() => {
+    // Calculate total when quantities change
+    updateTotal();
+  }, [quantities]); // Watch for changes in quantities
 
+console.log(overAllTotals)
   return (
     <div className='addToCartContainer'>
       <TableContainer  component={Paper}>
@@ -63,7 +71,7 @@ const AddToCart = () => {
               return (
                 <TableRow key={data.id}  sx={{ fontSize:"16px" }} >
                   <TableCell sx={{ fontSize:"16px",display:"flex",alignItems:"center",gap:"20px" }} >
-                    <img src={data.productImg} alt="" srcset=""  style={{width:"90px"}}/>
+                    <img src={data.productImg} alt="" style={{width:"90px"}}/>
                     <span>{data.productName}</span>
                     </TableCell>
                   <TableCell sx={{ fontSize:"16px" }}>${data.currentPrice}</TableCell>
@@ -106,10 +114,10 @@ const AddToCart = () => {
           <TableBody>
             <TableRow>
               <TableCell>
-                Subtotal :
+                Subtotal : 
               </TableCell>
               <TableCell>
-              
+              {/* ${overAllTotals} */}
               </TableCell>
             </TableRow>
             <TableRow>

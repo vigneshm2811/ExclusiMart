@@ -18,7 +18,8 @@ import {addedToCart} from "../../features/addToCart/cartSlice"
 import {useDispatch,useSelector } from 'react-redux'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const BestSelling = () => {
   const dispatch = useDispatch()
@@ -71,12 +72,15 @@ const BestSelling = () => {
   ];
   const notifyA = () =>{
     toast.success("Product Added to cart", {
-      position: "top-right"
+      position: "top-right",
+      icon:<AddShoppingCartIcon sx={{fontSize:"28px",color:"#07bc0c"}}/>
     });
   }
   const notifyB = () =>{
     toast.error("Added to Favorite", {
-      position: "top-right"
+      position: "top-right",
+      icon: <FavoriteIcon sx={{fontSize:"28px",color:"#db4444"}}/>
+
     });
   }
   const addToWish = (index) => {
